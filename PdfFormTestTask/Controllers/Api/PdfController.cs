@@ -45,8 +45,6 @@ namespace PdfFormTestTask.Service.Controllers.Api
 
             using (Document document = new Document(documentPath))
             {
-
-                //foreach (Field field in document.Form.Fields)
                 for (int i = 1; i <= document.Form.Count; i++)
                 {
                     Field field = null;

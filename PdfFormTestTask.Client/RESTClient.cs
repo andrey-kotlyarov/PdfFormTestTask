@@ -83,8 +83,6 @@ namespace PdfFormTestTask.Client
 
             // Get the response.
             WebResponse response = request.GetResponse();
-            // Display the status.
-            //Console.WriteLine(((HttpWebResponse)response).StatusDescription);
 
             // Get the stream containing content returned by the server.
             Stream dataStream = response.GetResponseStream();
