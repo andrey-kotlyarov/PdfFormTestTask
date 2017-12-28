@@ -16,7 +16,7 @@ namespace PdfFormTestTask.Service
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{username}/{password}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

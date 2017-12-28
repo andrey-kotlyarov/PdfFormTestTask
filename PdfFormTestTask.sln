@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfFormTestTask.Tests", "Pd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfFormTestTask.Model", "PdfFormTestTask.Model\PdfFormTestTask.Model.csproj", "{A00948A0-3DB7-4916-890C-D02C72812D77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfFormTestTask.Client", "PdfFormTestTask.Client\PdfFormTestTask.Client.csproj", "{0D2909CD-5B6D-4520-BE14-D7B393CD6589}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A00948A0-3DB7-4916-890C-D02C72812D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A00948A0-3DB7-4916-890C-D02C72812D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A00948A0-3DB7-4916-890C-D02C72812D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D2909CD-5B6D-4520-BE14-D7B393CD6589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D2909CD-5B6D-4520-BE14-D7B393CD6589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D2909CD-5B6D-4520-BE14-D7B393CD6589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D2909CD-5B6D-4520-BE14-D7B393CD6589}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

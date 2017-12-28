@@ -1,6 +1,5 @@
 ﻿@model PdfFormTestTask.Model.PfsUser
 
-
 @{
     ViewBag.Title = "Login";
 }
@@ -31,7 +30,7 @@
     </script>
 }
 
-@using (Html.BeginForm("Index", "Home"))
+@using (Html.BeginForm())
 {
     <div class="form-horizontal">
         <h4>Log In</h4>
@@ -56,5 +55,3 @@
         <button id="btn_user2_creds" type="button" class="btn btn-warning">Fill with User2 creds</button>
     </div>
 }
-
-
