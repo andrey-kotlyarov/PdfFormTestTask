@@ -1,0 +1,60 @@
+﻿@model PdfFormTestTask.Model.PfsUser
+
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@section scripts
+{
+    <script>
+        function fillCreds(username, password) {
+            $("#input_username").val(username);
+            $("#input_password").val(password);
+        }
+
+        function fillUser1Creds() {
+            fillCreds("user1", "pass1");
+        }
+
+        function fillUser2Creds() {
+            fillCreds("user2", "pass2");
+        }
+
+        function bindHandlers() {
+            $("#btn_user1_creds").click(fillUser1Creds);
+            $("#btn_user2_creds").click(fillUser2Creds);
+        }
+
+        $(document).ready(bindHandlers);
+
+    </script>
+}
+
+@using (Html.BeginForm("Index", "Home"))
+{
+    <div class="form-horizontal">
+        <h4>Log In</h4>
+        <hr />
+        @Html.ValidationSummary()
+        <div class="form-group">
+            @Html.LabelFor(u => u, "Username", new { @for = "input_username", @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(u => u.Username, new { @id = "input_username", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(u => u, "Password", new { @for = "input_password", @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.PasswordFor(u => u.Password, new { @id = "input_password", @class = "form-control" })
+            </div>
+        </div>
+
+        <button id="btn_submit" type="submit" class="btn btn-success">Submit</button>
+        <button id="btn_reset" type="reset" class="btn btn-default">Reset</button>
+        <button id="btn_user1_creds" type="button" class="btn btn-warning">Fill with User1 creds</button>
+        <button id="btn_user2_creds" type="button" class="btn btn-warning">Fill with User2 creds</button>
+    </div>
+}
+
+
