@@ -14,6 +14,12 @@ namespace PdfFormTestTask.Client
     {
         private static string SERVICE_URL = "http://localhost:12333/api/";
 
+        /// <summary>
+        /// Gets PfsUser by Username and Password
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <returns></returns>
         public static PfsUser GetUser(string username, string password)
         {
             return JsonConvert.DeserializeObject<PfsUser>(Get("User/" + username + "/" + password)) as PfsUser;

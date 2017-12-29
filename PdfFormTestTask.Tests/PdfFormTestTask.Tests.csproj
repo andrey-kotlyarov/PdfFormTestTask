@@ -101,6 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Api\UserControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\ValuesControllerTest.cs" />
@@ -112,6 +113,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PdfFormTestTask.Model\PdfFormTestTask.Model.csproj">
+      <Project>{A00948A0-3DB7-4916-890C-D02C72812D77}</Project>
+      <Name>PdfFormTestTask.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PdfFormTestTask\PdfFormTestTask.Service.csproj">
       <Project>{14B55081-1D25-4E36-A5C6-6C8BEA0E09D3}</Project>
       <Name>PdfFormTestTask.Service</Name>
