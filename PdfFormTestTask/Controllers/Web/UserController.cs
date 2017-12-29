@@ -11,6 +11,11 @@ namespace PdfFormTestTask.Service.Controllers.Web
 {
     public class UserController : BaseController
     {
+        /// <summary>
+        /// Initial Screen
+        /// GET /
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Login()
         {
@@ -20,6 +25,12 @@ namespace PdfFormTestTask.Service.Controllers.Web
             return View();
         }
 
+        /// <summary>
+        /// Perform Log in 
+        /// POST /
+        /// </summary>
+        /// <param name="_user">User's Model</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login(PfsUser _user)
         {
@@ -28,6 +39,7 @@ namespace PdfFormTestTask.Service.Controllers.Web
                 if (ModelState.IsValid)
                 {
                     PfsUser user = RESTClient.GetUser(_user.Username, _user.Password);
+                    //if user exists
                     if (null != user)
                     {
                         Session[Constants.USERNAME] = user.Username;

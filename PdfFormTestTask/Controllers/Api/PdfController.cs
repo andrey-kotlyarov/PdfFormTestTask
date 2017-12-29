@@ -13,6 +13,14 @@ namespace PdfFormTestTask.Service.Controllers.Api
 {
     public class PdfController : ApiController
     {
+        /// <summary>
+        /// Gets List of Fields of given PDF Form 
+        /// GET api/Pdf/{username}/{password}/{id}
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <param name="id">File Identifier</param>
+        /// <returns>List of PDF Fields</returns>
         public List<PfsFormField> Get(string username, string password, string id)
         {
             PfsPdfFile pdfFile = PfsRepository.Current.GetUser(username, password).GetPdfFileByLocalName(id);
@@ -24,6 +32,7 @@ namespace PdfFormTestTask.Service.Controllers.Api
                 {
                     for (int i = 1; i <= document.Form.Count; i++)
                     {
+                        // some forms have Count of fields more than it really is. Sad but true.
                         try
                         {
                             ret.Add(new PfsFormField(document.Form[i] as Field));
@@ -35,7 +44,15 @@ namespace PdfFormTestTask.Service.Controllers.Api
             return ret;
         }
 
-
+        /// <summary>
+        /// Save Fields Values of given PDF Form 
+        /// POST api/Pdf/{username}/{password}/{id}
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <param name="id">File Identifier</param>
+        /// <param name="values">Post Data: List of PDF Fields</param>
+        /// <returns>List of PDF Fields</returns>
         public List<PfsFormField> Post(string username, string password, string id, [FromBody] List<PfsFormField> values)
         {
             PfsPdfFile pdfFile = PfsRepository.Current.GetUser(username, password).GetPdfFileByLocalName(id);

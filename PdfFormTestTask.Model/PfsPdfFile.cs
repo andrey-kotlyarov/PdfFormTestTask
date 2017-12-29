@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PdfFormTestTask.Model
 {
+    /// <summary>
+    /// Stored PDF File Model
+    /// </summary>
     public class PfsPdfFile
     {
         public string LocalName { get; set; }

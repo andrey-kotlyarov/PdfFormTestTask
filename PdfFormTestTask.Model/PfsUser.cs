@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace PdfFormTestTask.Model
 {
+    /// <summary>
+    /// User's Model
+    /// </summary>
     public class PfsUser
     {
         public IList<PfsPdfFile> PdfFiles = new List<PfsPdfFile>();

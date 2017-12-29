@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PdfFormTestTask.Service.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -16,7 +17,7 @@ namespace PdfFormTestTask.Service
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{username}/{password}/{id}",
+                routeTemplate: "api/{controller}/{" + Constants.USERNAME + "}/{" + Constants.PASSWORD + "}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

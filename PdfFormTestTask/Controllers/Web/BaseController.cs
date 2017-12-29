@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace PdfFormTestTask.Service.Controllers.Web
 {
+    /// <summary>
+    /// Implements Base features (Alert handling)
+    /// </summary>
     public class BaseController : Controller
     {
         public void Success(string message, bool dismissable = false)

@@ -12,6 +12,13 @@ namespace PdfFormTestTask.Service.Controllers.Api
 {
     public class UploadController : ApiController
     {
+        /// <summary>
+        /// Uploads Pdf Form to the server 
+        /// POST api/Upload/{username}/{password}
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns>HttpResponseMessage</returns>
         public async Task<HttpResponseMessage> PostFormData(string username, string password)
         {
             // Check if the request contains multipart/form-data.
@@ -27,8 +34,8 @@ namespace PdfFormTestTask.Service.Controllers.Api
             {
                 // Read the form data.
                 await Request.Content.ReadAsMultipartAsync(provider);
-
-                // This illustrates how to get the file names.
+                
+                // Adding new PDF Form to Model
                 foreach (MultipartFileData file in provider.FileData)
                 {
                     PfsRepository.Current.GetUser(username, password).AddPdfForm(file.Headers.ContentDisposition.FileName.Replace("\"", ""),

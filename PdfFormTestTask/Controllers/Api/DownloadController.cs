@@ -13,6 +13,14 @@ namespace PdfFormTestTask.Service.Controllers.Api
 {
     public class DownloadController : ApiController
     {
+        /// <summary>
+        /// Gets Pdf Form File
+        /// GET api/Download/{username}/{password}/{id}
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <param name="id">File Identifier</param>
+        /// <returns>HttpResponseMessage</returns>
         [HttpGet]
         public HttpResponseMessage DownloadFile(string username, string password, string id)
         {

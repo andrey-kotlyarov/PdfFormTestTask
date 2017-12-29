@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PdfFormTestTask.Model
 {
+    /// <summary>
+    /// Service's Data Repository (Singleton)
+    /// </summary>
     public class PfsRepository
     {
         private static PfsRepository instance = new PfsRepository();

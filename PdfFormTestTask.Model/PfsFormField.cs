@@ -8,23 +8,30 @@ using System.Web.Mvc;
 
 namespace PdfFormTestTask.Model
 {
+    /// <summary>
+    /// Model of Field ofForm 
+    /// </summary>
     public class PfsFormField
     {
         public string Name { get; set; }
-
         public string Value { get; set; }
         public bool Checked { get; set; }
         public bool Required { get; set; }
         public int MaxLen { get; set; }
         public string FieldType { get; set; }
-
         public bool ReadOnly { get; set; }
         public IList<SelectListItem> Options { get; set; }
 
+        /// <summary>
+        /// Default CTOR for Newtonsoft.Json
+        /// </summary>
         public PfsFormField() { }
 
 
-
+        /// <summary>
+        /// CTOR
+        /// </summary>
+        /// <param name="field">Aspose.Pdf.Forms.Field</param>
         public PfsFormField(Field field)
         {
             Options = new List<SelectListItem>();
@@ -76,16 +83,6 @@ namespace PdfFormTestTask.Model
 
             }
 
-        }
-
-        public void AddRadioOption(RadioButtonOptionField radioButtonOptionField)
-        {
-
-            Options.Add(new SelectListItem()
-            {
-                Text = radioButtonOptionField.FullName,
-                Value = null
-            });
         }
     }
 }

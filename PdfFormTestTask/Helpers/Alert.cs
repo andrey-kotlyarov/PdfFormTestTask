@@ -5,6 +5,9 @@ using System.Web;
 
 namespace PdfFormTestTask.Service.Helpers
 {
+    /// <summary>
+    /// Model for _Alerts View
+    /// </summary>
     public class Alert
     {
         public const string TempDataKey = "TempDataAlerts";

@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 
 namespace PdfFormTestTask.Client
 {
-    public class RESTClient
+    /// <summary>
+    /// Client for REST Service
+    /// </summary>
+    public static class RESTClient
     {
         private static string SERVICE_URL = "http://localhost:12333/api/";
 
@@ -25,12 +28,27 @@ namespace PdfFormTestTask.Client
             return JsonConvert.DeserializeObject<PfsUser>(Get("User/" + username + "/" + password)) as PfsUser;
         }
 
+        /// <summary>
+        /// Gets List of fields of form 
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <param name="fileName">File identifier</param>
+        /// <returns></returns>
         public static List<PfsFormField> GetFormList(string username, string password, string fileName)
         {
             string response = Get("Pdf/" + username + "/" + password + "/" + fileName);
             return JsonConvert.DeserializeObject<List<PfsFormField>>(response) as List<PfsFormField>;
         }
 
+        /// <summary>
+        /// Sets values of forms
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <param name="fileName">File identifier</param>
+        /// <param name="fields"></param>
+        /// <returns></returns>
         public static List<PfsFormField> PostValues(string username, string password, string fileName, List<PfsFormField> fields)
         {
             string response = Post("Pdf/" + username + "/" + password + "/" + fileName, JsonConvert.SerializeObject(fields));
@@ -38,6 +56,12 @@ namespace PdfFormTestTask.Client
             return JsonConvert.DeserializeObject<List<PfsFormField>>(response) as List<PfsFormField>;
         }
 
+        /// <summary>
+        /// Makes a Post Request
+        /// </summary>
+        /// <param name="query">Url Query</param>
+        /// <param name="data">Post Data</param>
+        /// <returns></returns>
         private static string Post(string query, string data)
         {
             WebRequest request = WebRequest.Create(SERVICE_URL + query);
@@ -73,6 +97,11 @@ namespace PdfFormTestTask.Client
             return responseFromServer;
         }
 
+        /// <summary>
+        /// Makes a Get Request
+        /// </summary>
+        /// <param name="query">Url Query</param>
+        /// <returns></returns>
         private static string Get(string query)
         {
             // Create a request for the URL. 
