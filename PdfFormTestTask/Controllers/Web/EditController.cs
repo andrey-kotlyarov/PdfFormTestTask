@@ -22,6 +22,7 @@ namespace PdfFormTestTask.Service.Controllers.Web
         [HttpGet]
         public ActionResult Index(string id)
         {
+            
             PfsUser user = RESTClient.GetUser(Session[Constants.USERNAME].ToString(), Session[Constants.PASSWORD].ToString());
 
             if (null == user)
@@ -34,6 +35,8 @@ namespace PdfFormTestTask.Service.Controllers.Web
             {
                 return RedirectToAction("List", "Forms");
             }
+
+            ViewBag.Title = "PDF Form Fields: " + file.FileName;
 
             List<PfsFormField> fields = RESTClient.GetFormList(user.Username, user.Password, file.LocalName);
 
