@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PdfFormTestTask.Client;
 using PdfFormTestTask.Model;
 using PdfFormTestTask.Service.Controllers.Api;
 using System;
@@ -17,8 +18,9 @@ namespace PdfFormTestTask.Tests.Controllers.Api
         {
             UserController controller = new UserController();
             //wrong password
-            PfsUser user = controller.Get("user1", "pass");
-            Assert.IsNull(user);
+            PfsResponse<PfsUser> resp = controller.Get("user1", "pass");
+            Assert.IsNull(resp.Data);
+            Assert.IsFalse(resp.IsOk);
         }
 
         [TestMethod]
@@ -26,8 +28,9 @@ namespace PdfFormTestTask.Tests.Controllers.Api
         {
             UserController controller = new UserController();
             //wrong username
-            PfsUser user = controller.Get("user", "pass1");
-            Assert.IsNull(user);
+            PfsResponse<PfsUser> resp = controller.Get("user", "pass1");
+            Assert.IsNull(resp.Data);
+            Assert.IsFalse(resp.IsOk);
         }
 
         [TestMethod]
@@ -35,9 +38,10 @@ namespace PdfFormTestTask.Tests.Controllers.Api
         {
             UserController controller = new UserController();
             //right credentials for user with id = 1
-            PfsUser user = controller.Get("user1", "pass1");
-            Assert.IsNotNull(user);            
-            Assert.AreEqual(user.Id, 1);
+            PfsResponse<PfsUser> resp = controller.Get("user1", "pass1");
+            Assert.IsNotNull(resp.Data);            
+            Assert.AreEqual(resp.Data.Id, 1);
+            Assert.IsTrue(resp.IsOk);
         }
     }
 }

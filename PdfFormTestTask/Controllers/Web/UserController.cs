@@ -38,10 +38,11 @@ namespace PdfFormTestTask.Service.Controllers.Web
             {
                 if (ModelState.IsValid)
                 {
-                    PfsUser user = RESTClient.GetUser(_user.Username, _user.Password);
+                    PfsResponse<PfsUser> resp = RESTClient.GetUser(_user.Username, _user.Password);
                     //if user exists
-                    if (null != user)
+                    if (resp.IsOk)
                     {
+                        PfsUser user = resp.Data;
                         Session[Constants.USERNAME] = user.Username;
                         Session[Constants.PASSWORD] = user.Password;
 
@@ -49,7 +50,7 @@ namespace PdfFormTestTask.Service.Controllers.Web
                     }
                     else
                     {
-                        Danger("Wrong Username or Password!", true);
+                        Danger(resp.Message, true);
                     }
                 }
             }

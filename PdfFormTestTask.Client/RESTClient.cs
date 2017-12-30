@@ -23,9 +23,9 @@ namespace PdfFormTestTask.Client
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         /// <returns></returns>
-        public static PfsUser GetUser(string username, string password)
+        public static PfsResponse<PfsUser> GetUser(string username, string password)
         {
-            return JsonConvert.DeserializeObject<PfsUser>(Get("User/" + username + "/" + password)) as PfsUser;
+            return JsonConvert.DeserializeObject<PfsResponse<PfsUser>>(Get("User/" + username + "/" + password)) as PfsResponse<PfsUser>;
         }
 
         /// <summary>
@@ -35,10 +35,10 @@ namespace PdfFormTestTask.Client
         /// <param name="password">Password</param>
         /// <param name="fileName">File identifier</param>
         /// <returns></returns>
-        public static List<PfsFormField> GetFormList(string username, string password, string fileName)
+        public static PfsResponse<List<PfsFormField>> GetFormList(string username, string password, string fileName)
         {
             string response = Get("Pdf/" + username + "/" + password + "/" + fileName);
-            return JsonConvert.DeserializeObject<List<PfsFormField>>(response) as List<PfsFormField>;
+            return JsonConvert.DeserializeObject< PfsResponse<List<PfsFormField>>>(response) as PfsResponse<List<PfsFormField>>;
         }
 
         /// <summary>
@@ -49,11 +49,11 @@ namespace PdfFormTestTask.Client
         /// <param name="fileName">File identifier</param>
         /// <param name="fields"></param>
         /// <returns></returns>
-        public static List<PfsFormField> PostValues(string username, string password, string fileName, List<PfsFormField> fields)
+        public static PfsResponse<object> PostValues(string username, string password, string fileName, List<PfsFormField> fields)
         {
             string response = Post("Pdf/" + username + "/" + password + "/" + fileName, JsonConvert.SerializeObject(fields));
 
-            return JsonConvert.DeserializeObject<List<PfsFormField>>(response) as List<PfsFormField>;
+            return JsonConvert.DeserializeObject<PfsResponse<object>>(response) as PfsResponse<object>;
         }
 
         /// <summary>

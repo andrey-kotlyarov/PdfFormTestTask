@@ -1,5 +1,6 @@
 ﻿using Aspose.Pdf;
 using Aspose.Pdf.Forms;
+using PdfFormTestTask.Client;
 using PdfFormTestTask.Model;
 using System;
 using System.Collections.Generic;
@@ -20,28 +21,41 @@ namespace PdfFormTestTask.Service.Controllers.Api
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         /// <param name="id">File Identifier</param>
-        /// <returns>List of PDF Fields</returns>
-        public List<PfsFormField> Get(string username, string password, string id)
+        /// <returns>PfsResponse<List<PfsFormField>></returns>
+        public PfsResponse<List<PfsFormField>> Get(string username, string password, string id)
         {
-            PfsPdfFile pdfFile = PfsRepository.Current.GetUser(username, password).GetPdfFileByLocalName(id);
-            List<PfsFormField> ret = new List<PfsFormField>();
-
-            if (null != pdfFile)
+            try
             {
-                using (Document document = new Document(HttpContext.Current.Server.MapPath("~/App_Data") + "/" + pdfFile.LocalName))
+                PfsUser user = PfsRepository.Current.GetUser(username, password);
+                if (null == user) return new PfsResponse<List<PfsFormField>>("Wrong Username or Password");
+
+                PfsPdfFile pdfFile = user.GetPdfFileByLocalName(id);
+                if (null == pdfFile) return new PfsResponse<List<PfsFormField>>("File doesn't exist");
+
+                List<PfsFormField> data = new List<PfsFormField>();
+
+                if (null != pdfFile)
                 {
-                    for (int i = 1; i <= document.Form.Count; i++)
+                    using (Document document = new Document(HttpContext.Current.Server.MapPath("~/App_Data") + "/" + pdfFile.LocalName))
                     {
-                        // some forms have Count of fields more than it really is. Sad but true.
-                        try
+                        for (int i = 1; i <= document.Form.Count; i++)
                         {
-                            ret.Add(new PfsFormField(document.Form[i] as Field));
+                            // some forms have Count of fields more than it really is. Sad but true.
+                            try
+                            {
+                                data.Add(new PfsFormField(document.Form[i] as Field));
+                            }
+                            catch { }
                         }
-                        catch { }
                     }
                 }
+                return new PfsResponse<List<PfsFormField>>(data);
             }
-            return ret;
+            catch (Exception ex)
+            {
+                return new PfsResponse<List<PfsFormField>>(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -52,51 +66,58 @@ namespace PdfFormTestTask.Service.Controllers.Api
         /// <param name="password">Password</param>
         /// <param name="id">File Identifier</param>
         /// <param name="values">Post Data: List of PDF Fields</param>
-        /// <returns>List of PDF Fields</returns>
-        public List<PfsFormField> Post(string username, string password, string id, [FromBody] List<PfsFormField> values)
+        /// <returns>PfsResponse<object> (Message only)</returns>
+        public PfsResponse<object> Post(string username, string password, string id, [FromBody] List<PfsFormField> values)
         {
-            PfsPdfFile pdfFile = PfsRepository.Current.GetUser(username, password).GetPdfFileByLocalName(id);
-            List<PfsFormField> ret = new List<PfsFormField>();
-
-            string documentPath = HttpContext.Current.Server.MapPath("~/App_Data") + "/" + pdfFile.LocalName;
-
-            using (Document document = new Document(documentPath))
+            try
             {
-                for (int i = 1; i <= document.Form.Count; i++)
+                PfsUser user = PfsRepository.Current.GetUser(username, password);
+                if (null == user) return new PfsResponse<object>("Wrong Username or Password");
+
+                PfsPdfFile pdfFile = user.GetPdfFileByLocalName(id);
+                if (null == pdfFile) return new PfsResponse<object>("File doesn't exist");
+
+                string documentPath = HttpContext.Current.Server.MapPath("~/App_Data") + "/" + pdfFile.LocalName;
+
+                using (Document document = new Document(documentPath))
                 {
-                    Field field = null;
-                    try
+                    for (int i = 1; i <= document.Form.Count; i++)
                     {
-                        field = document.Form[i] as Field;
-                    }
-                    catch { }
-
-                    if (null == field) continue;
-
-                    foreach (PfsFormField pfsField in values)
-                    {
-                        if (field.FullName == pfsField.Name)
+                        Field field = null;
+                        try
                         {
+                            field = document.Form[i] as Field;
+                        }
+                        catch { }
 
-                            field.Value = pfsField.Value;
-                            if (field is CheckboxField)
+                        if (null == field) continue;
+
+                        foreach (PfsFormField pfsField in values)
+                        {
+                            if (field.FullName == pfsField.Name)
                             {
-                                (field as CheckboxField).Checked = pfsField.Checked;
+
+                                field.Value = pfsField.Value;
+                                if (field is CheckboxField)
+                                {
+                                    (field as CheckboxField).Checked = pfsField.Checked;
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
+
+                    document.Save(documentPath);
+
+                    
                 }
-
-                document.Save(documentPath);
-
-                ret = document.Form.Fields
-                    .Select(f => new PfsFormField(f))
-                    .ToList();
-
+                return new PfsResponse<object>("Success", true);
             }
-
-            return ret;
+            catch (Exception ex)
+            {
+                return new PfsResponse<object>(ex.Message);
+            }
+            
         }
     }
 }

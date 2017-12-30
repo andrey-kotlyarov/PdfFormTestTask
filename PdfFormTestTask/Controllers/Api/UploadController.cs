@@ -1,4 +1,5 @@
-﻿using PdfFormTestTask.Model;
+﻿using PdfFormTestTask.Client;
+using PdfFormTestTask.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,8 @@ namespace PdfFormTestTask.Service.Controllers.Api
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
-        /// <returns>HttpResponseMessage</returns>
-        public async Task<HttpResponseMessage> PostFormData(string username, string password)
+        /// <returns>PfsResponse<object></returns>
+        public async Task<PfsResponse<object>> PostFormData(string username, string password)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent())
@@ -41,11 +42,13 @@ namespace PdfFormTestTask.Service.Controllers.Api
                     PfsRepository.Current.GetUser(username, password).AddPdfForm(file.Headers.ContentDisposition.FileName.Replace("\"", ""),
                         file.LocalFileName.Split('\\').Last());
                 }
-                return Request.CreateResponse(HttpStatusCode.OK);
+                //return Request.CreateResponse(HttpStatusCode.OK);
+                return new PfsResponse<object>("Success", true);
             }
-            catch (System.Exception e)
+            catch (System.Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+                //return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+                return new PfsResponse<object>(ex.Message);
             }
         }
     }

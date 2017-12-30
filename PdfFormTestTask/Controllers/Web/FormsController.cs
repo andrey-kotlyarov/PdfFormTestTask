@@ -19,14 +19,15 @@ namespace PdfFormTestTask.Service.Controllers.Web
         [HttpGet]
         public ActionResult List()
         {
-            PfsUser user = RESTClient.GetUser(Session[Constants.USERNAME].ToString(), Session[Constants.PASSWORD].ToString());
-            if (null == user)
+            PfsResponse<PfsUser> resp = RESTClient.GetUser(Session[Constants.USERNAME].ToString(), Session[Constants.PASSWORD].ToString());
+
+            if (!resp.IsOk)
             {
                 // if user doesn't exist - redirect to login page
                 return RedirectToAction("Login", "User");
             }
             ViewBag.Title = "Forms";
-            return View(user);
+            return View(resp.Data);
         }
     }
 }

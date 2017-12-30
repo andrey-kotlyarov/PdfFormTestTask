@@ -184,7 +184,6 @@
     <Compile Include="Controllers\Api\PdfController.cs" />
     <Compile Include="Controllers\Api\UploadController.cs" />
     <Compile Include="Controllers\Api\UserController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\Web\BaseController.cs" />
     <Compile Include="Controllers\Web\EditController.cs" />
     <Compile Include="Controllers\Web\FormsController.cs" />

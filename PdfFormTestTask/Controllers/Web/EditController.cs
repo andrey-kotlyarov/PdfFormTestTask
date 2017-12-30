@@ -23,12 +23,14 @@ namespace PdfFormTestTask.Service.Controllers.Web
         public ActionResult Index(string id)
         {
             
-            PfsUser user = RESTClient.GetUser(Session[Constants.USERNAME].ToString(), Session[Constants.PASSWORD].ToString());
+            PfsResponse<PfsUser> userResponse = RESTClient.GetUser(Session[Constants.USERNAME].ToString(), Session[Constants.PASSWORD].ToString());
 
-            if (null == user)
+            if (!userResponse.IsOk)
             {
                 return RedirectToAction("Login", "User");
             }
+
+            PfsUser user = userResponse.Data;
 
             PfsPdfFile file = user.GetPdfFileByLocalName(id);
             if (null == file)
@@ -38,24 +40,35 @@ namespace PdfFormTestTask.Service.Controllers.Web
 
             ViewBag.Title = "PDF Form Fields: " + file.FileName;
 
-            List<PfsFormField> fields = RESTClient.GetFormList(user.Username, user.Password, file.LocalName);
+            PfsResponse<List<PfsFormField>> fieldsResponse = RESTClient.GetFormList(user.Username, user.Password, file.LocalName);
 
-            return View(fields);
+            if (!fieldsResponse.IsOk)
+            {
+                Danger(fieldsResponse.Message);
+                return View(new List<PfsFormField>());
+            }
+            return View(fieldsResponse.Data);
         }
 
         /// <summary>
         /// Save fields values and redirect to list of forms
         /// POST Edit
         /// </summary>
-        /// <param name="fields"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="fields">List<PfsFormField></param>
+        /// <param name="id">File identifier</param>
+        /// <returns>ActionResult</returns>
         [HttpPost]
         public ActionResult Index(List<PfsFormField> fields, string id)
         {
-            List<PfsFormField> ret = RESTClient.PostValues(Session[Constants.USERNAME].ToString(), Session[Constants.PASSWORD].ToString(), id, fields);
-
-            return RedirectToAction("List", "Forms");
+            PfsResponse<object> ret = RESTClient.PostValues(Session[Constants.USERNAME].ToString(), Session[Constants.PASSWORD].ToString(), id, fields);
+            if (ret.IsOk)
+            {
+                return RedirectToAction("List", "Forms");
+            }
+            else
+            {
+                return View(new List<PfsFormField>());
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PdfFormTestTask.Model;
+﻿using PdfFormTestTask.Client;
+using PdfFormTestTask.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,18 @@ namespace PdfFormTestTask.Service.Controllers.Api
         /// </summary>
         /// <param name="username">Username</param>
         /// <param name="password">password</param>
-        /// <returns>User's Model or null</returns>
-        public PfsUser Get(string username, string password)
+        /// <returns>PfsResponse<PfsUser></returns>
+        public PfsResponse<PfsUser> Get(string username, string password)
         {
-            return PfsRepository.Current.GetUser(username, password);
+            PfsUser ret = PfsRepository.Current.GetUser(username, password);
+            if (null == ret)
+            {
+                return new PfsResponse<PfsUser>("Wrong Username or Pasword");
+            }
+            else
+            {
+                return new PfsResponse<PfsUser>(ret);
+            }
         }
     }
 }
