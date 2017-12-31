@@ -39,7 +39,7 @@ Solution structure:
 Web application contains 3 pages.
 
 	1.Login page
-		There are two users in the repositary.
+		There are two users in the repository.
 		user1 pass1
 		user2 pass2
 	
