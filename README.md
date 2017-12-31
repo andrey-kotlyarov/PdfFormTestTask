@@ -6,6 +6,7 @@ REST service for PDF Form
 Task:
 	Create a REST service for working with the fields of a PDF document form.
 	The service should allow:
+
 		1. Upload PDF document.
 		2. Get the list of form fields.
 		3. Get the values of the fields.
@@ -35,6 +36,7 @@ Solution structure:
 	4. PdfFormTestTask.Tests contains Unit tests for some classes. (MS Test)
 
 Web application contains 3 pages.
+
 	1.Login page
 		There are two users in the repositary.
 		user1 pass1
