@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace PdfFormTestTask.Client
 {
+    /// <summary>
+    /// SErvice Response 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class PfsResponse<T>
     {
         public T Data { get; set; }

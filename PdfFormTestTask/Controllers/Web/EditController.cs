@@ -44,8 +44,8 @@ namespace PdfFormTestTask.Service.Controllers.Web
 
             if (!fieldsResponse.IsOk)
             {
-                Danger(fieldsResponse.Message);
-                return View(new List<PfsFormField>());
+                Danger("Wrong file format.");
+                return RedirectToAction("List", "Forms");
             }
             return View(fieldsResponse.Data);
         }
@@ -63,6 +63,7 @@ namespace PdfFormTestTask.Service.Controllers.Web
             PfsResponse<object> ret = RESTClient.PostValues(Session[Constants.USERNAME].ToString(), Session[Constants.PASSWORD].ToString(), id, fields);
             if (ret.IsOk)
             {
+                Success("Field values were saved successfully.");
                 return RedirectToAction("List", "Forms");
             }
             else

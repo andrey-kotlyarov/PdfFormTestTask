@@ -34,3 +34,18 @@ Solution structure:
 	3. PdfFormTestTask.Client contains the server client implementation for the REST service.
 	4. PdfFormTestTask.Tests contains Unit tests for some classes. (MS Test)
 
+Web application contains 3 pages.
+	1.Login page
+		There are two users in the repositary.
+		user1 pass1
+		user2 pass2
+	
+	2. Forms page
+		Pdf forms can be uploaded, downloaded and selected for edit on this page.	
+
+	3. PDF Form Fields
+		The page allows you to edit the values of the fields.
+		Supported fields: Textbox, Radio Buttons List, Checkbox, Combobox implemented as HTML select.
+
+
+			
