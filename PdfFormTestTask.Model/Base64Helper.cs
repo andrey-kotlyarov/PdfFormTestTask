@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PdfFormTestTask.Model
 {
+    /// <summary>
+    /// Provides Base64 string encode/decode
+    /// </summary>
     public static class Base64Helper
     {
 
