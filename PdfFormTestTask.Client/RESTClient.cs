@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PdfFormTestTask.Client
 {
@@ -25,6 +26,9 @@ namespace PdfFormTestTask.Client
         /// <returns></returns>
         public static PfsResponse<PfsUser> GetUser(string username, string password)
         {
+            username = Base64Helper.Encode(username);
+            password = Base64Helper.Encode(password);
+
             return JsonConvert.DeserializeObject<PfsResponse<PfsUser>>(Get("User/" + username + "/" + password)) as PfsResponse<PfsUser>;
         }
 
@@ -37,6 +41,9 @@ namespace PdfFormTestTask.Client
         /// <returns></returns>
         public static PfsResponse<List<PfsFormField>> GetFormList(string username, string password, string fileName)
         {
+            username = Base64Helper.Encode(username);
+            password = Base64Helper.Encode(password);
+
             string response = Get("Pdf/" + username + "/" + password + "/" + fileName);
             return JsonConvert.DeserializeObject< PfsResponse<List<PfsFormField>>>(response) as PfsResponse<List<PfsFormField>>;
         }
@@ -51,6 +58,9 @@ namespace PdfFormTestTask.Client
         /// <returns></returns>
         public static PfsResponse<object> PostValues(string username, string password, string fileName, List<PfsFormField> fields)
         {
+            username = Base64Helper.Encode(username);
+            password = Base64Helper.Encode(password);
+
             string response = Post("Pdf/" + username + "/" + password + "/" + fileName, JsonConvert.SerializeObject(fields));
 
             return JsonConvert.DeserializeObject<PfsResponse<object>>(response) as PfsResponse<object>;

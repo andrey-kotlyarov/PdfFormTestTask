@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base64Helper.cs" />
     <Compile Include="PfsFormField.cs" />
     <Compile Include="PfsPdfFile.cs" />
     <Compile Include="PfsRepository.cs" />

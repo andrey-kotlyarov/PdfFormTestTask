@@ -24,6 +24,9 @@ namespace PdfFormTestTask.Service.Controllers.Api
         [HttpGet]
         public HttpResponseMessage DownloadFile(string username, string password, string id)
         {
+            username = Base64Helper.Decode(username);
+            password = Base64Helper.Decode(password);
+
             PfsPdfFile pdfFile = PfsRepository.Current.GetUser(username, password).GetPdfFileByLocalName(id);
             List<PfsFormField> ret = new List<PfsFormField>();
 

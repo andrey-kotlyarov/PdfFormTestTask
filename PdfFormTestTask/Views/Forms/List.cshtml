@@ -62,7 +62,7 @@
 
                                 $.ajax({
                                     type: "POST",
-                                    url: '/api/Upload/@Model.Username/@Model.Password',
+                                    url: '/api/Upload/@Base64Helper.Encode(@Model.Username)/@Base64Helper.Encode(@Model.Password)',
                                     contentType: false,
                                     processData: false,
                                     data: data,

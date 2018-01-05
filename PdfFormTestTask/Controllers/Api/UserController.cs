@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace PdfFormTestTask.Service.Controllers.Api
@@ -20,10 +21,13 @@ namespace PdfFormTestTask.Service.Controllers.Api
         /// <returns>PfsResponse<PfsUser></returns>
         public PfsResponse<PfsUser> Get(string username, string password)
         {
+            username = Base64Helper.Decode(username);
+            password = Base64Helper.Decode(password);
+
             PfsUser ret = PfsRepository.Current.GetUser(username, password);
             if (null == ret)
             {
-                return new PfsResponse<PfsUser>("Wrong Username or Pasword");
+                return new PfsResponse<PfsUser>("Wrong Username or Password");
             }
             else
             {

@@ -22,6 +22,9 @@ namespace PdfFormTestTask.Service.Controllers.Api
         /// <returns>PfsResponse<object></returns>
         public async Task<PfsResponse<object>> PostFormData(string username, string password)
         {
+            username = Base64Helper.Decode(username);
+            password = Base64Helper.Decode(password);
+
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent())
             {

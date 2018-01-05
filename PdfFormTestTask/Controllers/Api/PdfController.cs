@@ -26,6 +26,9 @@ namespace PdfFormTestTask.Service.Controllers.Api
         {
             try
             {
+                username = Base64Helper.Decode(username);
+                password = Base64Helper.Decode(password);
+
                 PfsUser user = PfsRepository.Current.GetUser(username, password);
                 if (null == user) return new PfsResponse<List<PfsFormField>>("Wrong Username or Password");
 
@@ -71,6 +74,9 @@ namespace PdfFormTestTask.Service.Controllers.Api
         {
             try
             {
+                username = Base64Helper.Decode(username);
+                password = Base64Helper.Decode(password);
+
                 PfsUser user = PfsRepository.Current.GetUser(username, password);
                 if (null == user) return new PfsResponse<object>("Wrong Username or Password");
 

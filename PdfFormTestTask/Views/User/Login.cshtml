@@ -6,14 +6,14 @@
 
 @section scripts
 {
-    <script>
+<script>
         function fillCreds(username, password) {
             $("#input_username").val(username);
             $("#input_password").val(password);
         }
 
         function fillUser1Creds() {
-            fillCreds("user1", "pass1");
+            fillCreds("user1", "&!sd?_ :/123");
         }
 
         function fillUser2Creds() {
@@ -27,7 +27,7 @@
 
         $(document).ready(bindHandlers);
 
-    </script>
+</script>
 }
 
 @using (Html.BeginForm())

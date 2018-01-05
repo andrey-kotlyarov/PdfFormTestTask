@@ -24,7 +24,7 @@ namespace PdfFormTestTask.Model
 
         private void addTestUsersData()
         {
-            Users.Add(new PfsUser() { Id = 1, Username = "user1", Password = "pass1" });
+            Users.Add(new PfsUser() { Id = 1, Username = "user1", Password = "&!sd?_ :/123" });
             Users.Add(new PfsUser() { Id = 2, Username = "user2", Password = "pass2" });
         }
 
