@@ -13,12 +13,18 @@ namespace PdfFormTestTask.Tests.Controllers.Api
     [TestClass]
     public class UserControllerTest
     {
+        private string rightUsername = Base64Helper.Encode("user1");
+        private string rightPassword = Base64Helper.Encode(@"&!sd?_ :/123");
+
+        private string wrongUsername = Base64Helper.Encode("user");
+        private string wrongPassword = Base64Helper.Encode(@"&!sd?_ :/1234");
+
         [TestMethod]
         public void Get_WrongPassword_NULL()
         {
             UserController controller = new UserController();
             //wrong password
-            PfsResponse<PfsUser> resp = controller.Get("user1", "pass");
+            PfsResponse<PfsUser> resp = controller.Get(rightUsername, "pass");
             Assert.IsNull(resp.Data);
             Assert.IsFalse(resp.IsOk);
         }
@@ -28,7 +34,7 @@ namespace PdfFormTestTask.Tests.Controllers.Api
         {
             UserController controller = new UserController();
             //wrong username
-            PfsResponse<PfsUser> resp = controller.Get("user", "pass1");
+            PfsResponse<PfsUser> resp = controller.Get(wrongUsername, rightPassword);
             Assert.IsNull(resp.Data);
             Assert.IsFalse(resp.IsOk);
         }
@@ -38,7 +44,7 @@ namespace PdfFormTestTask.Tests.Controllers.Api
         {
             UserController controller = new UserController();
             //right credentials for user with id = 1
-            PfsResponse<PfsUser> resp = controller.Get("user1", "pass1");
+            PfsResponse<PfsUser> resp = controller.Get(rightUsername, rightPassword);
             Assert.IsNotNull(resp.Data);            
             Assert.AreEqual(resp.Data.Id, 1);
             Assert.IsTrue(resp.IsOk);
