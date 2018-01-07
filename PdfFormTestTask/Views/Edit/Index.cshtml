@@ -39,7 +39,7 @@
                             <td>
                                 @if (@Model[i].FieldType == "TextBox")
                                 {
-                                    @Html.TextBox("[" + i + "].Value", @Model[i].Value, new { @class = "form-control" })
+                                    @Html.TextBox("[" + i + "].Value", @Model[i].Value, new { @class = "form-control", maxlength = @Model[i].MaxLen.ToString() })
                                 }
                                 else if (@Model[i].FieldType == "CheckBox")
                                 {
