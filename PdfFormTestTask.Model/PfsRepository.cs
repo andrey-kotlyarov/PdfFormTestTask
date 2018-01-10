@@ -22,12 +22,22 @@ namespace PdfFormTestTask.Model
             addTestUsersData();
         }
 
+        /// <summary>
+        /// Creates initial test data
+        /// </summary>
         private void addTestUsersData()
         {
+            //First user have a passoword with special url simbols. 
             Users.Add(new PfsUser() { Id = 1, Username = "user1", Password = "&!sd?_ :/123" });
             Users.Add(new PfsUser() { Id = 2, Username = "user2", Password = "pass2" });
         }
 
+        /// <summary>
+        /// Gets user by credentials
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <returns>PfsUser or null</returns>
         public PfsUser GetUser(string username, string password)
         {
             return

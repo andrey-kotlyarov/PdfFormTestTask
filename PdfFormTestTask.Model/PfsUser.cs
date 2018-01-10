@@ -26,11 +26,21 @@ namespace PdfFormTestTask.Model
         {
         }
 
+        /// <summary>
+        /// Adds PDF form doc to teh user 
+        /// </summary>
+        /// <param name="fileName">Original File Name</param>
+        /// <param name="localFileName">File Identifier</param>
         public void AddPdfForm(string fileName, string localFileName)
         {
             PdfFiles.Add(new PfsPdfFile() { LocalName = localFileName, FileName = fileName });
         }
 
+        /// <summary>
+        /// Gets User's PDF Form by File Identifier
+        /// </summary>
+        /// <param name="localName">File Identifier</param>
+        /// <returns></returns>
         public PfsPdfFile GetPdfFileByLocalName(string localName)
         {
             return PdfFiles

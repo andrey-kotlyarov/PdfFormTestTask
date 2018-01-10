@@ -9,16 +9,40 @@ using System.Web.Mvc;
 namespace PdfFormTestTask.Model
 {
     /// <summary>
-    /// Model of Field ofForm 
+    /// Model of Field of Form 
     /// </summary>
     public class PfsFormField
     {
+        /// <summary>
+        /// Unique identifier of field/
+        /// It takes from PDF doc.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Value of the field.
+        /// </summary>
         public string Value { get; set; }
+
+        /// <summary>
+        /// CheckBox state.
+        /// </summary>
         public bool Checked { get; set; }
+
+        /// <summary>
+        /// Is field required.
+        /// </summary>
         public bool Required { get; set; }
+
+        /// <summary>
+        /// Max length of text field
+        /// </summary>
         public int MaxLen { get; set; }
-        public string FieldType { get; set; }
+
+        /// <summary>
+        /// Field Type
+        /// </summary>
+        public FieldType FieldType { get; set; }
         public bool ReadOnly { get; set; }
         public IList<SelectListItem> Options { get; set; }
 
@@ -45,13 +69,13 @@ namespace PdfFormTestTask.Model
             {
                 TextBoxField tb = field as TextBoxField;
 
-                FieldType = "TextBox";
+                FieldType = FieldType.TextBox;
                 MaxLen = tb.MaxLen;
 
             }
             else if (field is ComboBoxField)
             {
-                FieldType = "ListBox";
+                FieldType = FieldType.ListBox;
                 ComboBoxField cb = field as ComboBoxField;
                 foreach (Option option in cb.Options)
                 {
@@ -65,12 +89,12 @@ namespace PdfFormTestTask.Model
             }
             else if (field is CheckboxField)
             {
-                FieldType = "CheckBox";
+                FieldType = FieldType.CheckBox;
                 Checked = (field as CheckboxField).Checked;
             }
             else if (field is RadioButtonField)
             {
-                FieldType = "RadioButton";
+                FieldType = FieldType.RadioButton;
                 foreach (Option option in (field as RadioButtonField).Options)
                 {
                     Options.Add(new SelectListItem()

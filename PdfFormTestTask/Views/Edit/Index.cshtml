@@ -37,19 +37,19 @@
 
 
                             <td>
-                                @if (@Model[i].FieldType == "TextBox")
+                                @if (Model[i].FieldType == FieldType.TextBox)
                                 {
-                                    @Html.TextBox("[" + i + "].Value", @Model[i].Value, new { @class = "form-control", maxlength = @Model[i].MaxLen.ToString() })
+                                    @Html.TextBox("[" + i + "].Value", Model[i].Value, new { @class = "form-control", maxlength = Model[i].MaxLen.ToString() })
                                 }
-                                else if (@Model[i].FieldType == "CheckBox")
+                                else if (Model[i].FieldType == FieldType.CheckBox)
                                 {
-                                    @Html.CheckBox("[" + i + "].Checked", @Model[i].Checked)
+                                    @Html.CheckBox("[" + i + "].Checked", Model[i].Checked)
                                 }
-                                else if (@Model[i].FieldType == "ListBox")
+                                else if (Model[i].FieldType == FieldType.ListBox)
                                 {
-                                    @Html.DropDownList("[" + i + "].Value", @Model[i].Options, new { @class = "form-control" })
+                                    @Html.DropDownList("[" + i + "].Value", Model[i].Options, new { @class = "form-control" })
                                 }
-                                else if (@Model[i].FieldType == "RadioButton")
+                                else if (Model[i].FieldType == FieldType.RadioButton)
                                 {
 
                                     foreach (SelectListItem item in @Model[i].Options)
