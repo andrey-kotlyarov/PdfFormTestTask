@@ -26,7 +26,7 @@
                         <td>@file.FileName</td>
                         <td>
                             @Html.ActionLink("Edit Form", "Index", "Edit", new { @id = file.LocalName }, new { @class = "btn btn-success" })
-                            <a href="/api/Download/@Model.Username/@Model.Password/@file.LocalName" class="btn btn-success">Download</a>
+                            <a href="/api/Download/@Base64Helper.Encode(Model.Username)/@Base64Helper.Encode(Model.Password)/@file.LocalName" class="btn btn-success">Download</a>
                         </td>
                     </tr>
                 }
