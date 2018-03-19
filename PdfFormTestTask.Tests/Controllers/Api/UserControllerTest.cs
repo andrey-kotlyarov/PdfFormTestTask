@@ -45,9 +45,15 @@ namespace PdfFormTestTask.Tests.Controllers.Api
             UserController controller = new UserController();
             //right credentials for user with id = 1
             PfsResponse<PfsUser> resp = controller.Get(rightUsername, rightPassword);
-            Assert.IsNotNull(resp.Data);            
+            Assert.IsNotNull(resp.Data);
             Assert.AreEqual(resp.Data.Id, 1);
             Assert.IsTrue(resp.IsOk);
+        }
+
+        [TestMethod]
+        public void Get_NewTest()
+        {
+            Assert.IsTrue(true);
         }
     }
 }
